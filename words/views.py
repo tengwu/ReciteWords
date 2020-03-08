@@ -98,8 +98,24 @@ def queryWord(request):
     if request.method == 'GET':
         word = request.GET.get('word')
         result = WordJson.objects.filter(spell=word)
+        print(word)
         ans = {}
-        ans['statue_code'] = 200
+        ans['count'] = len(result)
+        ans['result'] = []
+        for item in result:
+            ans['result'].append(json.loads(item.json))
+        # print(ans)
+        return HttpResponse(json.dumps(ans), content_type='application/json')
+    else:
+        return HttpResponse('Please use GET method.')
+
+def getUnit(request):
+    if request.method == 'GET':
+        unitno = int(request.GET.get('unitno'))
+        start = 100*(unitno-1)
+        end = start+100
+        result = WordJson.objects.all()[start:end]
+        ans = {}
         ans['count'] = len(result)
         ans['result'] = []
         for item in result:
@@ -107,3 +123,5 @@ def queryWord(request):
         return HttpResponse(json.dumps(ans), content_type='application/json')
     else:
         return HttpResponse('Please use GET method.')
+
+
