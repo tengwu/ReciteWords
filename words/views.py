@@ -14,7 +14,14 @@ def getWord(_word, fdlog):
     _word = _word.replace(' ', '%20').strip('\n')
     url = 'http://www.iciba.com/'
     while True: #获取失败后等待10s再次获取
-        html = urlopen(url+_word)
+        html = ""
+        try:
+            html = urlopen(url+_word)
+        except Exception as e:
+            fdlog.write("ERROR Failed to get %s, exception info: %s, wait for 10s and retry...\n" % (_word, repr(e)))
+            fdlog.flush()
+            time.sleep(10)
+            continue
         bsObj = BeautifulSoup(html.read(), 'html.parser')
         # bsObj = BeautifulSoup(open('files/tmp.txt', 'r').read(), 'html.parser')
         word_dict = {}
@@ -23,7 +30,7 @@ def getWord(_word, fdlog):
         if baseSpeak is None:
             if cnt == 1: #一个单词重试1次
                 break
-            fdlog.write("ERROR Failed to get %s, Wait for 10s and retry...\n" % _word)
+            fdlog.write("ERROR Failed to get %s, wait for 10s and retry...\n" % _word)
             fdlog.flush()
             time.sleep(10)
             cnt = cnt+1
@@ -86,3 +93,17 @@ def threadGetWords():
 def getWords(request):
     _thread.start_new_thread(threadGetWords, ())
     return HttpResponse("Create a thread to get words, please go to files/log.txt for more information.")
+
+def queryWord(request):
+    if request.method == 'GET':
+        word = request.GET.get('word')
+        result = WordJson.objects.filter(spell=word)
+        ans = {}
+        ans['statue_code'] = 200
+        ans['count'] = len(result)
+        ans['result'] = []
+        for item in result:
+            ans['result'].append(json.loads(item.json))
+        return HttpResponse(json.dumps(ans), content_type='application/json')
+    else:
+        return HttpResponse('Please use GET method.')
