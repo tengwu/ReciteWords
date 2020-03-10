@@ -56,9 +56,9 @@ def getWord(_word, fdlog):
                 tmp_meaning['english'] = tmp[1].text
                 tmp_meaning['chinese'] = meaning.select_one('span.family-chinese').text
                 tmp_meaning['example'] = []
-                tmp_example = {}
                 example_all = meaning.find_all(class_="text-sentence")
                 for example in example_all:
+                    tmp_example = {}
                     tmp_example['english'] = example.select_one('p.family-english').text.lstrip().rstrip()
                     tmp_example['chinese'] = example.select_one('p.family-chinese').text.lstrip().rstrip()
                     tmp_meaning['example'].append(tmp_example)
@@ -124,4 +124,5 @@ def getUnit(request):
     else:
         return HttpResponse('Please use GET method.')
 
-
+def getUnitCnt(request):
+    pass
