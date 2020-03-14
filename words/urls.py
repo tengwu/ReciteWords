@@ -7,4 +7,5 @@ urlpatterns = [
     path('getWords', views.getWords, name='getWords'),
     path('query', views.queryWord, name='query'),
     path('getUnit', views.getUnit, name='getUnit'),
+    path('makeAnkiCards', views.makeForAnki, name='makeAnkiCards'),
 ]

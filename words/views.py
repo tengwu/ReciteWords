@@ -126,3 +126,35 @@ def getUnit(request):
 
 def getUnitCnt(request):
     pass
+
+# 制作anki卡片，输出内容到fd
+def makeAnkiCards():
+    # words = WordJson.objects.filter(spell='doorway') # test
+    words = WordJson.objects.all() #目前词库里只有考研的单词
+    sample = json.load(open('files/sample.json', 'r'))
+    fd = open('files/cards.txt', 'w')
+    for wordObj in words:
+        wordjson = wordObj.json
+        word = json.loads(wordjson)
+        frontend = sample['frontend'].replace('_spell', word['spell']).replace('_speak', word['speak_england']+word['speak_america'])
+        explanation = '' # 所有解释
+        for mea in word['meaning']:
+            # 一个解释
+            example = ''
+            for exa in mea['example']:
+                # 一个例句
+                example_single = sample['example'].replace('_example_english', exa['english']).replace('_example_chinese', exa['chinese'])
+                example = example + example_single
+            meaning = sample['meaning'].replace('_property', mea['property']).replace('_meaning_english', mea['english']).replace('_meaning_chinese', mea['chinese']).replace('_example', example)
+            explanation = explanation+meaning
+        backend = sample['backend'].replace('content', explanation)
+        fd.write(frontend)
+        fd.write('\t')
+        fd.write(backend)
+        fd.write('\n')
+        fd.flush()
+    fd.close()
+
+def makeForAnki(request):
+    _thread.start_new_thread(makeAnkiCards, ())
+    return HttpResponse("Create a thread to make anki cards, please go to files/cards.txt for result.")

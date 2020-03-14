@@ -1,0 +1,6 @@
+{
+    "frontend": "<div><h1>_spell</h1><div class=\"font-italic font-weight-light center\">_speak</div></div>",
+    "meaning": "<li><div><div><span class=\"green white--text\">_property</span> _meaning_english</div><div class=\"font-italic font-weight-light\">_meaning_chinese</div></div><ul>_example</ul></li>",
+    "example": "<li><div><div>_example_english</div><div class=\"font-italic font-weight-light\">_example_chinese</div></div></li>",
+    "backend": "<ol>content</ol>"
+}
