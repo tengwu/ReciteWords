@@ -136,7 +136,8 @@ def makeAnkiCards():
     for wordObj in words:
         wordjson = wordObj.json
         word = json.loads(wordjson)
-        frontend = sample['frontend'].replace('_spell', word['spell']).replace('_speak', word['speak_england']+word['speak_america'])
+        frontend = sample['frontend'].replace('_spell', word['spell'])
+        speech = sample['speech'].replace('_speak', word['speak_england']+word['speak_america'])
         explanation = '' # 所有解释
         for mea in word['meaning']:
             # 一个解释
@@ -149,6 +150,8 @@ def makeAnkiCards():
             explanation = explanation+meaning
         backend = sample['backend'].replace('content', explanation)
         fd.write(frontend)
+        fd.write('\t')
+        fd.write(speech)
         fd.write('\t')
         fd.write(backend)
         fd.write('\n')
