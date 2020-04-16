@@ -165,11 +165,11 @@ def makeForAnki(request):
 def makeLatex():
     words = WordJson.objects.all()  # 目前词库里只有考研的单词
     sample = json.load(open('files/latex_sample.json', 'r'))
-    len = len(words)
-    for i in range(0, len):
+    i = 0
+    for word in words:
         unitno = int(i/50 + 1)
         fd = open('files/latexs/unit' + unitno + '.tex', 'w')
-        wordjson = words[i].json
+        wordjson = word.json
         result = sample['title'].replace('UNITNO', str(unitno))
         result = result + sample['word'] + sample['end']
         result = result.replace('SPELL', wordjson['spell'])
@@ -188,6 +188,7 @@ def makeLatex():
 
         fd.write(result)
         fd.close()
+        i = i+1
 
 def makeForLatex(request):
     _thread.start_new_thread(makeLatex, ())
