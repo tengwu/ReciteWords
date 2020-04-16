@@ -161,3 +161,34 @@ def makeAnkiCards():
 def makeForAnki(request):
     _thread.start_new_thread(makeAnkiCards, ())
     return HttpResponse("Create a thread to make anki cards, please go to files/cards.txt for result.")
+
+def makeLatex():
+    words = WordJson.objects.all()  # 目前词库里只有考研的单词
+    sample = json.load(open('files/latex_sample.json', 'r'))
+    len = len(words)
+    for i in range(0, len):
+        unitno = int(i/50 + 1)
+        fd = open('files/latexs/unit' + unitno + '.tex', 'w')
+        wordjson = words[i].json
+        result = sample['title'].replace('UNITNO', str(unitno))
+        result = result + sample['word'] + sample['end']
+        result = result.replace('SPELL', wordjson['spell'])
+        result = result.replace('UK_VOICE', wordjson['speak_england'])
+        result = result.replace('US_VOICE', wordjson['speak_america'])
+        meanings = ''
+        for m in wordjson['meaning']:
+            meaning = sample['meaning'].replace('PROPERTY', m['property']).replace('MEANING', m['english'])
+            examples = ''
+            for ex in m['example']:
+                example = sample['example'].replace('EXAMPLE', ex['english'])
+                examples = examples + example
+            meaning = meaning.replace('EXAMPLES', examples)
+            meanings = meanings + meaning
+        result = result.replace('MEANINGS', meanings)
+
+        fd.write(result)
+        fd.close()
+
+def makeForLatex(request):
+    _thread.start_new_thread(makeLatex, ())
+    return HttpResponse("Create a thread to make Latex source, please go to files/latex.txt for result.")
