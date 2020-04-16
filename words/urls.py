@@ -8,5 +8,5 @@ urlpatterns = [
     path('query', views.queryWord, name='query'),
     path('getUnit', views.getUnit, name='getUnit'),
     path('makeAnkiCards', views.makeForAnki, name='makeAnkiCards'),
-    path('makeLatexs', views.makeLatex, name='makeLatexs'),
+    path('makeLatexs', views.makeForLatex, name='makeLatexs'),
 ]
