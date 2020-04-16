@@ -166,13 +166,21 @@ def makeLatex():
     words = WordJson.objects.all()  # 目前词库里只有考研的单词
     sample = json.load(open('files/latex_sample.json', 'r'))
     i = 0
+    fd = open('files/latexs/unit1.tex', 'w')
+    title = sample['title'].replace('UNITNO', '1')
+    results = ''
     for word in words:
-        unitno = int(i/50 + 1)
-        fd = open('files/latexs/unit' + str(unitno) + '.tex', 'w')
+        if i % 50 == 0 and i != 0:
+            fd.write(title + results + sample['end'])
+            fd.close()
+            unitno = int(i/50 + 1)
+            results = ''
+            title = sample['title'].replace('UNITNO', str(unitno))
+            fd = open('files/latexs/unit' + str(unitno) + '.tex', 'w')
         wordstr = word.json
         wordjson = json.loads(wordstr)
-        result = sample['title'].replace('UNITNO', str(unitno))
-        result = result + sample['word'] + sample['end']
+
+        result = sample['word']
         result = result.replace('SPELL', wordjson['spell'])
         result = result.replace('UK_VOICE', wordjson['speak_england'])
         result = result.replace('US_VOICE', wordjson['speak_america'])
@@ -187,9 +195,11 @@ def makeLatex():
             meanings = meanings + meaning
         result = result.replace('MEANINGS', meanings)
 
-        fd.write(result)
-        fd.close()
+        results = results + result
         i = i+1
+
+    fd.write(title + results + sample['end'])
+    fd.close()
 
 def makeForLatex(request):
     _thread.start_new_thread(makeLatex, ())
