@@ -1,12 +1,7 @@
 {
-
-  // UNITNO
   "title": "\\documentclass[a4paper]{article}\\usepackage{hyperref}\\usepackage{xeCJK}\\usepackage{microtype}\\usepackage{color}\\usepackage{multicol}\\usepackage{geometry}\\usepackage{seqsplit}\\definecolor{mygray}{gray}{0.3}\\geometry{a4paper,text={165mm,255mm},centering}\\setCJKmainfont{SimSun.ttf}\\title{Unit UNITNO}\\date{}\\author{}\\begin{document}\\maketitle\\begin{multicols}{2}",
-  // SPELL UK_VOICE US_VOICE { MEANINGS }
   "word": "\\LARGE \\textbf{\\textcolor{blue}{SPELL}} \\normalsize \\textcolor{mygray}{UK[\\textit{UK_VOICE}]} \\textcolor{mygray}{US[\\textit{US_VOICE}]}\\begin{enumerate}MEANINGS\\end{enumerate}\\vspace{1.5\\baselineskip}",
-  // PROPERTY MEANING { EXAMPLES }
   "meaning": "\\item\\textbf{\\textit{\\textcolor{red}{PROPERTY}}}MEANING\\begin{enumerate}EXAMPLES\\end{enumerate}",
-  // EXAMPLE
   "example": "\\item EXAMPLE",
   "end":"\\end{multicols}\\end{document}"
 }
