@@ -169,7 +169,8 @@ def makeLatex():
     for word in words:
         unitno = int(i/50 + 1)
         fd = open('files/latexs/unit' + str(unitno) + '.tex', 'w')
-        wordjson = word.json
+        wordstr = word.json
+        wordjson = json.loads(wordstr)
         result = sample['title'].replace('UNITNO', str(unitno))
         result = result + sample['word'] + sample['end']
         result = result.replace('SPELL', wordjson['spell'])
