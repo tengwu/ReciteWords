@@ -1,5 +1,5 @@
 {
-  "title": "\\documentclass[a4paper]{article}\\usepackage{hyperref}\\usepackage{xeCJK}\\usepackage{microtype}\\usepackage{color}\\usepackage{multicol}\\usepackage{geometry}\\usepackage{seqsplit}\\definecolor{mygray}{gray}{0.3}\\geometry{a4paper,text={165mm,255mm},centering}\\setCJKmainfont{STSongti-SC-Regular}\\newfontfamily{\\yinbiao}{LingoesUnicode}\\\\title{Unit UNITNO}\\date{}\\author{}\\begin{document}\\maketitle\\begin{multicols}{2}\n",
+  "title": "\\documentclass[a4paper]{article}\\usepackage{hyperref}\\usepackage{xeCJK}\\usepackage{microtype}\\usepackage{color}\\usepackage{multicol}\\usepackage{geometry}\\usepackage{seqsplit}\\definecolor{mygray}{gray}{0.3}\\geometry{a4paper,text={165mm,255mm},centering}\\setCJKmainfont{STSongti-SC-Regular}\\newfontfamily{\\yinbiao}{LingoesUnicode}\\title{Unit UNITNO}\\date{}\\author{}\\begin{document}\\maketitle\\begin{multicols}{2}\n",
   "word": "\\LARGE \\textbf{\\textcolor{blue}{SPELL}} \\normalsize \\textcolor{mygray}{\\yinbiao UK_VOICE} \\textcolor{mygray}{\\yinbiao US_VOICE}\\begin{enumerate}MEANINGS\\end{enumerate}\\vspace{1.5\\baselineskip}\n",
   "meaning": "\\item\\textbf{\\textit{\\textcolor{red}{PROPERTY}}}MEANING\\begin{enumerate}EXAMPLES\\end{enumerate}",
   "example": "\\item EXAMPLE",
